@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Panel de Control{% endblock %}
+{% block card_class %}dashboard-card{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <div class="user-profile">
+        <div class="avatar">
+            {{ user.name[0] | upper }}
+        </div>
+        <div class="user-info">
+            <h2>Panel de Control</h2>
+            <p>Bienvenido de nuevo, {{ user.name }} (@{{ user.username }})</p>
+        </div>
+    </div>
+    <a href="{{ url_for('logout') }}" class="btn-secondary">Cerrar Sesión</a>
+</div>
+
+<div class="dashboard-body">
+    <h3 style="margin-bottom: 1rem; font-family: var(--font-heading); font-size: 1.25rem;">Estadísticas de la Sesión</h3>
+    
+    <div class="dashboard-grid">
+        <div class="stat-box">
+            <h3>Usuario Activo</h3>
+            <p class="number" style="font-size: 1.5rem; word-break: break-all;">{{ user.username }}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Rol / Acceso</h3>
+            <p class="number" style="font-size: 1.5rem; background: linear-gradient(135deg, #10b981, #6366f1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                {% if user.username == 'admin' %}Administrador{% else %}Usuario Estándar{% endif %}
+            </p>
+        </div>
+        <div class="stat-box">
+            <h3>Estado del Servidor</h3>
+            <p class="number" style="font-size: 1.5rem; background: linear-gradient(135deg, #34d399, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Online 🟢</p>
+        </div>
+    </div>
+
+    <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: var(--border-radius-md); padding: 1.5rem; margin-top: 1.5rem;">
+        <h4 style="font-family: var(--font-heading); font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--primary);">Información de seguridad de la cuenta</h4>
+        <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+            Esta es una sesión web segura respaldada por un identificador de sesión encriptado con cookies firmadas por Flask. Las contraseñas se almacenan mediante el algoritmo de hash seguro **PBKDF2 con hashing SHA256** mediante la librería Werkzeug de Python.
+        </p>
+    </div>
+</div>
+{% endblock %}
